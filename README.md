@@ -15,3 +15,12 @@ https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode
 https://marketplace.visualstudio.com/items?itemName=ChakrounAnas.turbo-console-log
 
 https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
+
+Note:
+
+1. React Const Query from "Nirav Vakani";
+2. Expain about light weight arrow function.
+
+
+https://github.com/tc39/proposals/blob/master/finished-proposals.md
