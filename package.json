@@ -1,0 +1,23 @@
+{
+  "name": "stridely_react_training",
+  "version": "0.0.1",
+  "description": "React.js training",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imyagnesh/Stridely_react_training.git"
+  },
+  "keywords": [
+    "React",
+    "Training"
+  ],
+  "author": "Yagnesh Modh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/imyagnesh/Stridely_react_training/issues"
+  },
+  "homepage": "https://github.com/imyagnesh/Stridely_react_training#readme"
+}
