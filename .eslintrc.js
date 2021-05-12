@@ -14,5 +14,9 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react'],
-  rules: {},
+  rules: {
+    'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx'] }],
+    'react/static-property-placement': 0,
+    'react/state-in-constructor': 0,
+  },
 };

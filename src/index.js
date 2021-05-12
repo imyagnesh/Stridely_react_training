@@ -1,7 +1,5 @@
-import data from './App';
+import React from 'react';
+import { render } from 'react-dom';
+import App from './App';
 
-const a = '2';
-
-console.log(a);
-
-console.log(data);
+render(<App name="Yagnesh">hello from App</App>, document.getElementById('root'));
