@@ -1,6 +1,6 @@
-import data from './App'
+import data from './App';
 
-const a = 1;
+const a = '2';
 
 console.log(a);
 
