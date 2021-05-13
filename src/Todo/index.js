@@ -3,11 +3,13 @@ import './style.scss';
 import TodoFilter from './todoFilter';
 import TodoForm from './todoForm';
 import TodoList from './todoList';
+import axios from '../../utils/fetcher';
 
 class Todo extends PureComponent {
   state = {
     todoList: [],
     status: 'all',
+    error: '',
   };
 
   inputRef = createRef();
@@ -17,24 +19,43 @@ class Todo extends PureComponent {
     this.addTodo = this.addTodo.bind(this);
   }
 
-  toggleTodo = todo => {
-    const { todoList } = this.state;
-    const index = todoList.findIndex(x => x.id === todo.id);
-    this.setState({
-      todoList: [
-        ...todoList.slice(0, index),
-        { ...todo, isDone: !todo.isDone },
-        ...todoList.slice(index + 1),
-      ],
-    });
+  componentDidMount() {
+    this.fetchTodoList();
+  }
+
+  fetchTodoList = async () => {
+    try {
+      const res = await axios.get('todoList');
+      this.setState({
+        todoList: res.data,
+      });
+    } catch (error) {
+      //   this.setState({
+      //     error: error.message,
+      //   });
+    }
   };
 
-  deleteTodo = todo => {
-    const { todoList } = this.state;
-    const index = todoList.findIndex(x => x.id === todo.id);
-    this.setState({
-      todoList: [...todoList.slice(0, index), ...todoList.slice(index + 1)],
-    });
+  toggleTodo = async todo => {
+    try {
+      const res = await axios.put(`todoList/${todo.id}`, { ...todo, isDone: !todo.isDone });
+      const { todoList } = this.state;
+      const index = todoList.findIndex(x => x.id === todo.id);
+      this.setState({
+        todoList: [...todoList.slice(0, index), res.data, ...todoList.slice(index + 1)],
+      });
+    } catch (error) {}
+  };
+
+  deleteTodo = async todo => {
+    try {
+      await axios.delete(`todoList/${todo.id}`);
+      const { todoList } = this.state;
+      const index = todoList.findIndex(x => x.id === todo.id);
+      this.setState({
+        todoList: [...todoList.slice(0, index), ...todoList.slice(index + 1)],
+      });
+    } catch (error) {}
   };
 
   getFilteredData = () => {
@@ -50,22 +71,27 @@ class Todo extends PureComponent {
     });
   };
 
-  addTodo(event) {
-    event.preventDefault();
-    const { todoList } = this.state;
-    this.setState(
-      {
-        todoList: [
-          ...todoList,
-          { id: new Date().valueOf(), todoText: this.inputRef.current.value, isDone: false },
-        ],
-        status: 'all',
-      },
-      () => {
-        this.inputRef.current.value = '';
-      },
-    );
-  }
+  addTodo = async event => {
+    try {
+      event.preventDefault();
+      const res = await axios.post('todoList', {
+        todoText: this.inputRef.current.value,
+        isDone: false,
+        timeStamp: new Date(),
+      });
+
+      const { todoList } = this.state;
+      this.setState(
+        {
+          todoList: [res.data, ...todoList],
+          status: 'all',
+        },
+        () => {
+          this.inputRef.current.value = '';
+        },
+      );
+    } catch (error) {}
+  };
 
   render() {
     console.log('main index page');

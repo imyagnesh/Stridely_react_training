@@ -22,4 +22,4 @@ TodoFilter.propTypes = {
   changeStatus: PropTypes.func.isRequired,
 };
 
-export default memo(TodoFilter, (prevProps, nextProps) => true);
+export default memo(TodoFilter, () => true);
