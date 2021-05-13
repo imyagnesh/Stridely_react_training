@@ -1,5 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './App';
+// import App from './App';
+import Todo from './Todo';
+import './index.scss';
 
-render(<App name="Yagnesh">hello from App</App>, document.getElementById('root'));
+render(<Todo />, document.getElementById('root'));

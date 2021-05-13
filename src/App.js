@@ -39,6 +39,9 @@ import PropTypes from 'prop-types';
 
 // component will re-render only when prop value change or state value change.
 
+// React < 15
+// Hooks ->
+// Class Componenat
 // Mouting
 // -> constructor
 // -> getDerivedStateFromProps
@@ -56,7 +59,9 @@ import PropTypes from 'prop-types';
 // -> componentWillUnmount
 
 // Error
-// ->
+// -> getDerivedStateFromError
+// -> componentDidCatch
+
 class App extends Component {
   static propTypes = {
     children: PropTypes.string.isRequired,
@@ -73,34 +78,71 @@ class App extends Component {
     data: 'hello from data',
   };
 
+  // State Def
+  /**
+   * Creates an instance of App.
+   * @param {*} props
+   * @memberof App
+   * used for declare state and bind events
+   * fire only once in LCM
+   */
   constructor(props) {
     super(props);
     console.log('constructor');
     this.copyEvent = this.copyEvent.bind(this);
   }
 
+  /**
+   *
+   *
+   * @static
+   * @param {*} props
+   * @param {*} state
+   * @return {*} New State
+   * @memberof App
+   * base on your new Props and new State return new state value
+   * Mouting & Updating
+   */
   static getDerivedStateFromProps(props, state) {
-    console.log('getDerivedStateFromProps');
     return {
       ...state,
       nameWithGreet: `Hello ${props.name}`,
     };
   }
 
-  copyEvent() {
-    console.log('copied');
-  }
-
-  componentDidMount() {
+  /**
+   * once component mounted on DOM this LCM called
+   * call only once
+   * Event Lisner Register
+   * TO manipulate DOM
+   * TO Get Data on load of component
+   * @memberof App
+   */
+  async componentDidMount() {
     this.nameRef.current.style = 'color: red';
     document.addEventListener('copy', this.copyEvent);
     this.timeout = setTimeout(() => {
       console.log('sto');
     }, 5000);
+    try {
+      // const data = await getData()
+      // this.setState({ data })
+    } catch (error) {
+      // this.setError({ error })
+    }
 
     // to Fetch data
   }
 
+  /**
+   * base on nextProps and nextState you can stop rerendring
+   * IMP LCM to improve performace
+   *
+   * @param {*} nextProps
+   * @param {*} nextState
+   * @return {boolean}
+   * @memberof App
+   */
   shouldComponentUpdate(nextProps, nextState) {
     // if (this.state !== nextState && this.props !== nextProps) {
     //   return true;
@@ -108,21 +150,79 @@ class App extends Component {
     return true;
   }
 
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    return 10;
-  }
+  /**
+   * To get Current UI Possition
+   * what ever you retun you will get in 3rd parameter of CDU
+   *
+   * @param {*} prevProps
+   * @param {*} prevState
+   * @return {any}
+   * @memberof App
+   */
+  // getSnapshotBeforeUpdate(prevProps, prevState) {
+  //   return 10;
+  // }
 
+  /**
+   * To remove event listners
+   * TO manipulate DOM
+   * TO Get Data on re-render of component
+   * @param {*} prevProps
+   * @param {*} prevState
+   * @param {*} snapshot
+   * @memberof App
+   */
   componentDidUpdate(prevProps, prevState, snapshot) {
-    //   if( ) {
-    //       // call api
-    //   }
+    // if(this.state.xyz !== prevState.xyz) {
+    //     // call api
+    // }
   }
 
+  /**
+   * to remove events or timeouts or interval
+   * TO Cancel API
+   * TO remove all async processes
+   * @memberof App
+   */
   componentWillUnmount() {
     document.removeEventListener('copy', this.copyEvent);
     clearTimeout(this.timeout);
   }
 
+  /**
+   * To display message on Error
+   *
+   * @static
+   * @param {*} error
+   * @return {*}
+   * @memberof App
+   */
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: error };
+  }
+
+  /**
+   * To Log errors
+   *
+   * @param {*} error
+   * @param {*} info
+   * @memberof App
+   */
+  componentDidCatch(error, info) {
+    // to log errors
+  }
+
+  copyEvent() {
+    console.log('copied');
+  }
+
+  /**
+   * this method return HTML for dome
+   * userd to design UI
+   * @return {HTMLAllCollection}
+   * @memberof App
+   */
   render() {
     console.log('render');
     const { data, nameWithGreet } = this.state;
