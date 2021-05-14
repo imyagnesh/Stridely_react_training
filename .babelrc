@@ -16,7 +16,8 @@
         "alias": {
           "todo": "./src/Todo",
           "utils": "./src/utils",
-          "reducers": "./src/reducers"
+          "reducers": "./src/reducers",
+          "hooks": "./src/hooks"
         }
       }
     ]

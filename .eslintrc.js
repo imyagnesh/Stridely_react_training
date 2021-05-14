@@ -13,11 +13,13 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['react', 'react-hooks'],
   rules: {
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx'] }],
     'react/static-property-placement': 0,
     'react/state-in-constructor': 0,
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
   },
   settings: {
     'import/resolver': {

@@ -2,72 +2,45 @@ import React, { useRef, useEffect, useReducer, memo } from 'react';
 import TodoFilter from 'todo/todoFilter';
 import TodoForm from 'todo/todoForm';
 import TodoList from 'todo/todoList';
-import axios from 'utils/fetcher';
 import todoReducer, { initialState } from 'reducers/todoReducer';
+import useApiCalls from 'hooks/useApiCalls';
 import './style.scss';
 
 const Todo = () => {
-  const [{ loading, todoList, error, status }, dispatch] = useReducer(todoReducer, initialState);
-
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState('');
-  // const [todoList, setTodoList] = useState([]);
-  // const [status, setStatus] = useState('all');
-
-  const fetchTodoList = async () => {
-    console.log('fetchTodoList');
-    try {
-      dispatch({ type: 'LOAD_TODO_REQUEST' });
-      const res = await axios.get('todoList');
-      dispatch({ type: 'LOAD_TODO_SUCCESS', payload: res.data });
-    } catch (err) {
-      dispatch({ type: 'LOAD_TODO_ERROR', payload: err });
-    }
-  };
-
-  // ComponentDidMount
-  useEffect(() => {
-    fetchTodoList();
-    // return () => {
-    //   cleanup
-    // }
-  }, []);
-
   const inputRef = useRef();
+  const [{ loading, todoList, error, status }, dispatch] = useReducer(todoReducer, initialState);
+  const { getData, addData, updateData, deleteData } = useApiCalls(dispatch);
+
+  useEffect(() => {
+    getData({ url: 'todoList', type: 'LOAD_TODO' });
+  }, [getData]);
 
   const addTodo = async event => {
-    try {
-      event.preventDefault();
-      dispatch({ type: 'ADD_TODO_REQUEST' });
-      const res = await axios.post('todoList', {
+    event.preventDefault();
+    addData({
+      url: 'todoList',
+      data: {
         todoText: inputRef.current.value,
         isDone: false,
         timeStamp: new Date(),
-      });
-      dispatch({ type: 'ADD_TODO_SUCCESS', payload: res.data });
-    } catch (err) {
-      dispatch({ type: 'ADD_TODO_ERROR', payload: err });
-    }
+      },
+      type: 'ADD_TODO',
+    });
   };
 
   const toggleTodo = async todo => {
-    try {
-      dispatch({ type: 'TOGGLE_TODO_REQUEST' });
-      const res = await axios.put(`todoList/${todo.id}`, { ...todo, isDone: !todo.isDone });
-      dispatch({ type: 'TOGGLE_TODO_SUCCESS', payload: res.data });
-    } catch (err) {
-      dispatch({ type: 'TOGGLE_TODO_ERROR', payload: err });
-    }
+    updateData({
+      url: `todoList/${todo.id}`,
+      data: { ...todo, isDone: !todo.isDone },
+      type: 'TOGGLE_TODO',
+    });
   };
 
   const deleteTodo = async todo => {
-    try {
-      dispatch({ type: 'DELETE_TODO_REQUEST' });
-      await axios.delete(`todoList/${todo.id}`);
-      dispatch({ type: 'DELETE_TODO_SUCCESS', payload: todo });
-    } catch (err) {
-      dispatch({ type: 'DELETE_TODO_REQUEST', payload: err });
-    }
+    deleteData({
+      url: `todoList/${todo.id}`,
+      type: 'DELETE_TODO',
+    });
   };
 
   const getFilteredData = () =>
@@ -80,8 +53,6 @@ const Todo = () => {
       }
       return true;
     });
-
-  console.log('render');
 
   return (
     <div className="container">
@@ -96,7 +67,7 @@ const Todo = () => {
       {error && (
         <div style={{ flex: 1 }}>
           <p>{error.message}</p>
-          <button type="button" onClick={fetchTodoList}>
+          <button type="button" onClick={() => getData({ url: 'todoList', type: 'LOAD_TODO' })}>
             Retry
           </button>
         </div>
