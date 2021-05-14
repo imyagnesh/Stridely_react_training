@@ -2,10 +2,15 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 const TodoFilter = ({ changeStatus }) => {
-  console.log('TodoFilter');
+  console.log();
   return (
     <div className="filterContainer">
-      <button type="button" onClick={() => changeStatus('all')}>
+      <button
+        type="button"
+        onClick={() => {
+          changeStatus('all');
+        }}
+      >
         All
       </button>
       <button type="button" onClick={() => changeStatus('pending')}>

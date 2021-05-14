@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "todo/*": ["src/Todo/*"],
+      "utils/*": ["src/utils/*"],
+      "reducers/*": ["src/reducers/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}

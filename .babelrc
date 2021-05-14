@@ -1,4 +1,24 @@
 {
-  "presets": ["@babel/preset-env","@babel/preset-react"],
-  "plugins": ["@babel/plugin-transform-runtime"]
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "extensions": [
+          ".ts",
+          ".tsx",
+          ".jsx",
+          ".js",
+          ".json"
+        ],
+        "alias": {
+          "todo": "./src/Todo",
+          "utils": "./src/utils",
+          "reducers": "./src/reducers"
+        }
+      }
+    ]
+  ]
 }

@@ -19,4 +19,15 @@ module.exports = {
     'react/static-property-placement': 0,
     'react/state-in-constructor': 0,
   },
+  settings: {
+    'import/resolver': {
+      'babel-module': {
+        extensions: ['.ts', '.tsx', '.jsx', '.js', '.json'],
+      },
+      node: {
+        extensions: ['.ts', '.tsx', '.jsx', '.js', '.json'],
+        paths: ['~'],
+      },
+    },
+  },
 };

@@ -52,15 +52,15 @@ import PropTypes from 'prop-types';
 // -> getDerivedStateFromProps
 // -> shouldComponentUpdate
 // -> render
-// -> getSnapshotBeforeUpdate
+// -> getSnapshotBeforeUpdate -> Hooks Not Supported
 // -> componentDidUpdate
 
 // Unmount
 // -> componentWillUnmount
 
 // Error
-// -> getDerivedStateFromError
-// -> componentDidCatch
+// -> getDerivedStateFromError -> Hooks Not Supported
+// -> componentDidCatch -> Hooks Not Supported
 
 class App extends Component {
   static propTypes = {

@@ -2,7 +2,7 @@ import React, { forwardRef, memo } from 'react';
 import PropTypes from 'prop-types';
 
 const TodoForm = forwardRef(({ addTodo }, ref) => {
-  console.log('TodoForm');
+  console.log();
   return (
     <form onSubmit={addTodo}>
       <input ref={ref} name="todoInput" type="text" />
