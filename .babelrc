@@ -18,7 +18,8 @@
           "utils": "./src/utils",
           "reducers": "./src/reducers",
           "hooks": "./src/hooks",
-          "hoc": "./src/hoc"
+          "hoc": "./src/hoc",
+          "pages": "./src/pages"
         }
       }
     ]

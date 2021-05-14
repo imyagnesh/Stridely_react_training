@@ -20,6 +20,7 @@ module.exports = {
     'react/state-in-constructor': 0,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
+    'react/jsx-props-no-spreading': 0,
   },
   settings: {
     'import/resolver': {
