@@ -5,6 +5,7 @@ import TodoList from 'todo/todoList';
 import todoReducer, { initialState } from 'reducers/todoReducer';
 import useApiCalls from 'hooks/useApiCalls';
 import './style.scss';
+import ErrorBoundary from 'src/components/ErrorBoundary';
 
 const Todo = () => {
   const inputRef = useRef();
@@ -55,31 +56,33 @@ const Todo = () => {
     });
 
   return (
-    <div className="container">
-      <h1>Todo App</h1>
-      <TodoForm addTodo={addTodo} ref={inputRef} />
-      <TodoList
-        data={getFilteredData()}
-        toggleTodo={toggleTodo}
-        deleteTodo={deleteTodo}
-        loading={loading}
-      />
-      {error && (
-        <div style={{ flex: 1 }}>
-          <p>{error.message}</p>
-          <button type="button" onClick={() => getData({ url: 'todoList', type: 'LOAD_TODO' })}>
-            Retry
-          </button>
-        </div>
-      )}
-      <TodoFilter
-        changeStatus={status => {
-          setLoading(!loading);
-          // throw new Error('something went etzsdf..');
-          // this.setState({ status });
-        }}
-      />
-    </div>
+    <ErrorBoundary>
+      <div className="container">
+        <h1>Todo App</h1>
+        <TodoForm addTodo={addTodo} ref={inputRef} />
+        <TodoList
+          data={getFilteredData()}
+          toggleTodo={toggleTodo}
+          deleteTodo={deleteTodo}
+          loading={loading}
+        />
+        {error && (
+          <div style={{ flex: 1 }}>
+            <p>{error.message}</p>
+            <button type="button" onClick={() => getData({ url: 'todoList', type: 'LOAD_TODO' })}>
+              Retry
+            </button>
+          </div>
+        )}
+        <TodoFilter
+          changeStatus={status => {
+            setLoading(!loading);
+            // throw new Error('something went etzsdf..');
+            // this.setState({ status });
+          }}
+        />
+      </div>
+    </ErrorBoundary>
   );
 };
 
