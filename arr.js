@@ -163,15 +163,8 @@ const users = [
 // }
 
 const groupByAge = users.reduce((p, c) => {
-  const ageGroup =
-    c.age >= 10 && c.age <= 19
-      ? "10-19"
-      : c.age >= 20 && c.age <= 29
-      ? "20-29"
-      : c.age >= 30 && c.age <= 39
-      ? "30-39"
-      : "Above 40";
-
+  const gap = Math.floor(c.age / 10);
+  const ageGroup = `${gap}0-${gap}9`;
   return { ...p, [ageGroup]: p[ageGroup] ? [...p[ageGroup], c] : [c] };
 }, {});
 console.log(groupByAge);
