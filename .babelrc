@@ -1,0 +1,28 @@
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "extensions": [
+          ".ts",
+          ".tsx",
+          ".jsx",
+          ".js",
+          ".json"
+        ],
+        "alias": {
+          "todo": "./src/Todo",
+          "components": "./src/components",
+          "utils": "./src/utils",
+          "reducers": "./src/reducers",
+          "hooks": "./src/hooks",
+          "hoc": "./src/hoc",
+          "pages": "./src/pages"
+        }
+      }
+    ]
+  ]
+}

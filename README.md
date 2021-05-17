@@ -15,3 +15,5 @@ https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode
 https://marketplace.visualstudio.com/items?itemName=ChakrounAnas.turbo-console-log
 
 https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
+json-server --watch db.json
