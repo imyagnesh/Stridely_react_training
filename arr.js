@@ -162,3 +162,9 @@ const users = [
 //     female: []
 // }
 
+const groupByAge = users.reduce((p, c) => {
+  const gap = Math.floor(c.age / 10);
+  const ageGroup = `${gap}0-${gap}9`;
+  return { ...p, [ageGroup]: p[ageGroup] ? [...p[ageGroup], c] : [c] };
+}, {});
+console.log(groupByAge);
