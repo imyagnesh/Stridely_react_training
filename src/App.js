@@ -15,30 +15,63 @@
 // Testing Components
 
 import NotFound from 'pages/NotFound';
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import AuthRoute from './components/AuthRoute';
+import { AuthProvider, AuthContext } from './context/authContext';
 import route from './route';
 
-const App = () => (
-  <Router>
-    <div>
+const Navigation = () => {
+  const [auth, , loding] = useContext(AuthContext);
+  console.log(auth, loding);
+  if (loding) {
+    return <h1>Loading...</h1>;
+  }
+  return (
+    <Switch>
+      {route.map(x => {
+        if (x.authRequire) {
+          return <AuthRoute isAuthenticated={!!auth} {...x} />;
+        }
+        return <Route {...x} />;
+      })}
+      <Route component={NotFound} />
+    </Switch>
+  );
+};
+
+const Header = () => {
+  const [auth] = useContext(AuthContext);
+  if (auth) {
+    return (
       <nav>
         <ul>
-          {route.map(x => (
-            <li key={x.path}>
-              <Link to={x.path}>{x.label}</Link>
-            </li>
-          ))}
+          {route.map(x => {
+            if (x.label) {
+              return (
+                <li key={x.path}>
+                  <Link to={x.path}>{x.label}</Link>
+                </li>
+              );
+            }
+            return null;
+          })}
         </ul>
       </nav>
-      <Switch>
-        {route.map(x => (
-          <Route {...x} />
-        ))}
-        <Route component={NotFound} />
-      </Switch>
-    </div>
-  </Router>
+    );
+  }
+  return null;
+};
+
+const App = () => (
+  <AuthProvider>
+    <Router>
+      <div className="container">
+        <Header />
+        <Navigation />
+      </div>
+    </Router>
+  </AuthProvider>
 );
 
 export default App;
