@@ -4,6 +4,8 @@ import axiosInstance from 'utils/fetcher';
 import Form from 'components/form';
 import { AuthContext } from 'src/context/authContext';
 import { fields, initialValues } from './fields';
+import { Button } from '@material-ui/core';
+
 
 const Login = ({ history }) => {
   const [, setAuth] = useContext(AuthContext);
@@ -35,11 +37,11 @@ const Login = ({ history }) => {
       <Form
         fields={fields}
         initialValues={initialValues}
-        onSubmit={submitForm}
         buttonProps={{
           children: 'Sign IN',
         }}
       />
+      <Button id="reg" color='primary' variant='contained' href="/register">Register</Button>
     </div>
   );
 };
