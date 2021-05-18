@@ -40,6 +40,7 @@ const Login = ({ history }) => {
           children: 'Sign IN',
         }}
       />
+  <Button id="reg" color='primary' variant='contained' href="/registration">Register</Button>
     </div>
   );
 };
