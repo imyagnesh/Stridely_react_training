@@ -40,6 +40,17 @@ const Login = ({ history }) => {
           children: 'Sign IN',
         }}
       />
+      <button
+        type="button"
+        variant="contained"
+        color="primary"
+        className="clsRegister MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+        onClick={() => {
+          history.push('/register');
+        }}
+      >
+        New User? Click Here!!
+      </button>
     </div>
   );
 };
