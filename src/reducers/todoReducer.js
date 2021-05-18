@@ -16,6 +16,9 @@ export default (state, { type, payload }) => {
     case 'LOAD_TODO_SUCCESS':
       return { ...state, loading: false, error: '', todoList: payload };
 
+    case 'Set_Status_SUCCESS':
+      return { ...state, status: payload };
+
     case 'ADD_TODO_SUCCESS':
       return {
         ...state,
