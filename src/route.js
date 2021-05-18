@@ -9,6 +9,11 @@ export default [
     path: '/login',
     component: Login,
   },
+    {
+    key: 'register',
+    path: '/register',
+    component: Register,
+  },
   {
     key: 1,
     path: '/',
