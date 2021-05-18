@@ -1,4 +1,4 @@
-#loginContainer {
+#registerContainer {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -12,7 +12,7 @@
             margin:  10px 0;
         }
     }
-    & > .clsRegister{
+    & > .clsLogin{
         width: 40%;
         margin:  10px 0;
     }
