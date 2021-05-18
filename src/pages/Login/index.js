@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import './styles.scss';
 import axiosInstance from 'utils/fetcher';
 import Form from 'components/form';
+import { Button } from '@material-ui/core';
 import { AuthContext } from 'src/context/authContext';
 import { fields, initialValues } from './fields';
 
@@ -40,6 +41,7 @@ const Login = ({ history }) => {
           children: 'Sign IN',
         }}
       />
+      <Button href="/Registration">Register</Button>
     </div>
   );
 };
