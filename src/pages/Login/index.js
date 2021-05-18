@@ -10,6 +10,7 @@ const Login = ({ history }) => {
 
   const submitForm = async (value, props) => {
     console.log(props);
+    debugger
     try {
       const res = await axiosInstance.post(
         'https://calm-oasis-43947.herokuapp.com/auth/local',
@@ -40,6 +41,16 @@ const Login = ({ history }) => {
           children: 'Sign IN',
         }}
       />
+      <button
+        type="button"
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          history.push('/register');
+        }}
+      >
+        New User? Click Here!!
+      </button>
     </div>
   );
 };
