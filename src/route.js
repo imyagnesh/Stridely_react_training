@@ -1,6 +1,7 @@
 import About from 'pages/About';
 import Home from 'pages/Home';
 import Login from 'pages/Login';
+import Signup from 'pages/Signup';
 import Users from 'pages/Users';
 
 export default [
@@ -31,5 +32,11 @@ export default [
     label: 'Users',
     component: Users,
     authRequire: true,
+  },
+  {
+    key: 4,
+    path: '/signup',
+    exact: true,
+    component: Signup,
   },
 ];
