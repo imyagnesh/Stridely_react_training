@@ -4,6 +4,7 @@ import axiosInstance from 'utils/fetcher';
 import Form from 'components/form';
 import { AuthContext } from 'src/context/authContext';
 import { fields, initialValues } from './fields';
+import { Button } from '@material-ui/core';
 
 const Login = ({ history }) => {
   const [, setAuth] = useContext(AuthContext);
@@ -40,6 +41,16 @@ const Login = ({ history }) => {
           children: 'Sign IN',
         }}
       />
+      <Button
+        type="button"
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          history.replace('/signup');
+        }}
+      >
+        Want to Sign Up?
+      </Button>
     </div>
   );
 };
