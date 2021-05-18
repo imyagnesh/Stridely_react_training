@@ -1,30 +1,25 @@
-import React, { memo } from 'react';
+import React, { forwardRef, memo } from 'react';
 import PropTypes from 'prop-types';
 
-const TodoFilter = ({ changeStatus }) => {
-  console.log();
+const TodoFilter = forwardRef(({ changeStatus }, ref) => {
+  const { allButtonRef, pendingButtonRef, completedButtonRef } = ref;
   return (
     <div className="filterContainer">
-      <button
-        type="button"
-        onClick={() => {
-          changeStatus('all');
-        }}
-      >
+      <button ref={allButtonRef} type="button" onClick={() => changeStatus('all')}>
         All
       </button>
-      <button type="button" onClick={() => changeStatus('pending')}>
+      <button ref={pendingButtonRef} type="button" onClick={() => changeStatus('pending')}>
         Pending
       </button>
-      <button type="button" onClick={() => changeStatus('completed')}>
+      <button ref={completedButtonRef} type="button" onClick={() => changeStatus('completed')}>
         Completed
       </button>
     </div>
   );
-};
+});
 
 TodoFilter.propTypes = {
   changeStatus: PropTypes.func.isRequired,
 };
 
-export default memo(TodoFilter, () => true);
+export default memo(TodoFilter);

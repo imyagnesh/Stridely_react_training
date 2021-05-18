@@ -4,11 +4,15 @@ import TodoForm from 'todo/todoForm';
 import TodoList from 'todo/todoList';
 import todoReducer, { initialState } from 'reducers/todoReducer';
 import useApiCalls from 'hooks/useApiCalls';
+import useFocus from 'hooks/useFocus';
 import './style.scss';
 import ErrorBoundary from 'src/components/ErrorBoundary';
 
 const Todo = () => {
   const inputRef = useRef();
+  const [allButtonRef, setAllButtonFocus] = useFocus();
+  const [pendingButtonRef, setPendingButtonFocus] = useFocus();
+  const [completedButtonRef, setCompletedButtonFocus] = useFocus();
   const [{ loading, todoList, error, status }, dispatch] = useReducer(todoReducer, initialState);
   const { getData, addData, updateData, deleteData } = useApiCalls(dispatch);
 
@@ -44,16 +48,26 @@ const Todo = () => {
     });
   };
 
-  const getFilteredData = () =>
-    todoList.filter(todo => {
+  const getFilteredData = () => {
+    if (status === 'pending') {
+      setPendingButtonFocus();
+    } else if (status === 'completed') {
+      setCompletedButtonFocus();
+    } else {
+      setAllButtonFocus();
+    }
+
+    return todoList.filter(todo => {
       if (status === 'pending') {
         return !todo.isDone;
       }
       if (status === 'completed') {
         return todo.isDone;
       }
+
       return true;
     });
+  };
 
   return (
     <ErrorBoundary>
@@ -75,10 +89,13 @@ const Todo = () => {
           </div>
         )}
         <TodoFilter
+          ref={{
+            allButtonRef: allButtonRef,
+            pendingButtonRef: pendingButtonRef,
+            completedButtonRef: completedButtonRef,
+          }}
           changeStatus={status => {
-            setLoading(!loading);
-            // throw new Error('something went etzsdf..');
-            // this.setState({ status });
+            dispatch({ type: 'Set_Status_SUCCESS', payload: status });
           }}
         />
       </div>
