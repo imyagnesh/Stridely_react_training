@@ -1,0 +1,26 @@
+#loginContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    & > form {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        & > .textInput {
+            margin:  10px 0;
+        }
+    }
+
+    
+}
+#reg{
+    margin-top: 1%;
+    display: flex;
+        flex-direction: column;
+        width: 40%;
+        & > .textInput {
+            margin:  10px 0;
+        }
+}
