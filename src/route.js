@@ -1,35 +1,38 @@
-import About from 'pages/About';
+import Admin from 'pages/Admin';
+import AddProduct from 'pages/Admin/AddProduct';
+import ProductList from 'pages/Admin/ProductList';
 import Home from 'pages/Home';
 import Login from 'pages/Login';
-import Users from 'pages/Users';
 
 export default [
   {
-    key: 'login',
-    path: '/login',
-    component: Login,
-  },
-  {
-    key: 1,
     path: '/',
     exact: true,
     label: 'Home',
     component: Home,
-    authRequire: true,
   },
   {
-    key: 2,
-    path: '/about',
-    label: 'About',
-    component: About,
-    authRequire: true,
+    path: '/login',
+    component: Login,
   },
   {
-    key: 3,
-    path: '/users',
+    path: '/admin',
     exact: true,
-    label: 'Users',
-    component: Users,
-    authRequire: true,
+    component: Admin,
+    routes: [
+      {
+        path: '/admin',
+        exact: true,
+        component: ProductList,
+      },
+      {
+        path: '/admin/addproduct',
+        component: AddProduct,
+      },
+      {
+        path: '/admin/updateproduct/:id',
+        component: AddProduct,
+      },
+    ],
   },
 ];

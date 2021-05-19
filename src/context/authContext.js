@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
       try {
         setLoding(true);
         const token = await sessionStorage.getItem('token');
-        console.log(token);
         setAuth(token);
       } catch (error) {
       } finally {

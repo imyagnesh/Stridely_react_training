@@ -14,62 +14,43 @@
 // Convet Todo application using Hooks
 // Testing Components
 
-import NotFound from 'pages/NotFound';
-import React, { useContext } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import AuthRoute from './components/AuthRoute';
-import { AuthProvider, AuthContext } from './context/authContext';
-import route from './route';
+import Navigation from 'components/Navigation';
+import React from 'react';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { AuthProvider } from './context/authContext';
+import routes from './route';
 
-const Navigation = () => {
-  const [auth, , loding] = useContext(AuthContext);
-  console.log(auth, loding);
-  if (loding) {
-    return <h1>Loading...</h1>;
-  }
-  return (
-    <Switch>
-      {route.map(x => {
-        if (x.authRequire) {
-          return <AuthRoute isAuthenticated={!!auth} {...x} />;
-        }
-        return <Route {...x} />;
-      })}
-      <Route component={NotFound} />
-    </Switch>
-  );
-};
-
-const Header = () => {
-  const [auth] = useContext(AuthContext);
-  if (auth) {
-    return (
-      <nav>
-        <ul>
-          {route.map(x => {
-            if (x.label) {
-              return (
-                <li key={x.path}>
-                  <Link to={x.path}>{x.label}</Link>
-                </li>
-              );
-            }
-            return null;
-          })}
-        </ul>
-      </nav>
-    );
-  }
-  return null;
-};
+// const Header = () => {
+//   const [auth] = useContext(AuthContext);
+//   if (auth) {
+//     return (
+//       <nav>
+//         <ul>
+//           {route.map(x => {
+//             if (x.label) {
+//               return (
+//                 <li key={x.path}>
+//                   <Link to={x.path}>{x.label}</Link>
+//                 </li>
+//               );
+//             }
+//             return null;
+//           })}
+//         </ul>
+//       </nav>
+//     );
+//   }
+//   return null;
+// };
 
 const App = () => (
   <AuthProvider>
     <Router>
-      <div className="container">
-        <Header />
-        <Navigation />
-      </div>
+      <Switch>
+        {routes.map((route, i) => (
+          <Navigation key={i} {...route} />
+        ))}
+      </Switch>
     </Router>
   </AuthProvider>
 );

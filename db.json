@@ -12,5 +12,53 @@
       "timeStamp": "2021-05-14T06:38:40.824Z",
       "id": 2
     }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "IPhone 11",
+      "manifacturerId": 1,
+      "typeId": 1,
+      "price": "60000",
+      "currency": "INR",
+      "quantities": 4
+    },
+    {
+      "id": 3,
+      "name": "Notbook",
+      "manifacturerId": 3,
+      "typeId": 3,
+      "price": "80000",
+      "currency": "INR",
+      "quantities": 6
+    }
+  ],
+  "productTypes": [
+    {
+      "id": 1,
+      "type": "Mobile"
+    },
+    {
+      "id": 2,
+      "type": "Tablet"
+    },
+    {
+      "id": 3,
+      "type": "Laptop"
+    }
+  ],
+  "manifacturers": [
+    {
+      "id": 1,
+      "manifacturer": "Apple"
+    },
+    {
+      "id": 2,
+      "manifacturer": "Samsung"
+    },
+    {
+      "id": 3,
+      "manifacturer": "Xiomi"
+    }
   ]
 }
