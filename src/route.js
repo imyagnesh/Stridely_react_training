@@ -35,4 +35,12 @@ export default [
       },
     ],
   },
+  {
+    path: '/addProduct',
+    component: AddProduct,
+  },
+  {
+    path: '/updateProduct/:id',
+    component: AddProduct,
+  },
 ];

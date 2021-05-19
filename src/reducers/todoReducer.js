@@ -5,7 +5,7 @@ export const initialState = {
   status: 'all',
 };
 
-export default (state, { type, payload }) => {
+export default (state = initialState, { type, payload }) => {
   switch (type) {
     case 'LOAD_TODO_REQUEST':
     case 'ADD_TODO_REQUEST':

@@ -10,12 +10,20 @@ import {
   IconButton,
   Button,
 } from '@material-ui/core';
+import { connect } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import EditIcon from '@material-ui/icons/Edit';
 
-const ProductList = ({ history }) => {
+const ProductList = ({
+  history,
+  isProductsLoading,
+  loadProductRequest,
+  loadProductSuccess,
+  loadProductFail,
+}) => {
+  console.log('isProductsLoading', isProductsLoading);
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [productTypes, setProductTypes] = useState([]);
@@ -30,19 +38,22 @@ const ProductList = ({ history }) => {
         axiosInstance.get('productTypes'),
         axiosInstance.get('manifacturers'),
       ]);
+      loadProductSuccess(res[0]);
       setProducts(res[0]);
       setProductTypes(res[1]);
       setManifacturers(res[2]);
       setLoading(false);
     } catch (err) {
+      loadProductFail(err);
       setError(err);
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
+    loadProductRequest();
     loadData();
-  }, [loadData]);
+  }, [loadData, loadProductRequest]);
 
   const removeProduct = useCallback(async id => {
     try {
@@ -88,11 +99,7 @@ const ProductList = ({ history }) => {
       {loading && <h1>Loading...</h1>}
       {!loading && (
         <>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => history.push('/admin/addProduct')}
-          >
+          <Button variant="contained" color="primary" onClick={() => history.push('/addProduct')}>
             Add Product
           </Button>
           <TableContainer>
@@ -139,7 +146,10 @@ const ProductList = ({ history }) => {
                       <IconButton aria-label="delete" onClick={() => removeProduct(product.id)}>
                         <DeleteIcon />
                       </IconButton>
-                      <IconButton aria-label="edit">
+                      <IconButton
+                        aria-label="edit"
+                        onClick={() => history.push(`/updateProduct/${product.id}`)}
+                      >
                         <EditIcon />
                       </IconButton>
                     </TableCell>
@@ -153,5 +163,13 @@ const ProductList = ({ history }) => {
     </div>
   );
 };
+const mapStateToProps = store => ({
+  isProductsLoading: store.products.loading,
+});
+const mapDispatchToPropss = dispatch => ({
+  loadProductRequest: () => dispatch({ type: 'LOAD_PRODUCTS_REQUEST' }),
+  loadProductSuccess: payload => dispatch({ type: 'LOAD_PRODUCTS_SUCCESS', payload }),
+  loadProductFail: payload => dispatch({ type: 'LOAD_PRODUCTS_FAIL', payload }),
+});
 
-export default ProductList;
+export default connect(mapStateToProps, mapDispatchToPropss)(ProductList);
