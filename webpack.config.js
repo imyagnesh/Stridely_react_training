@@ -6,8 +6,9 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'bundle'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -27,6 +28,10 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({ template: './public/index.html' })],
   devServer: {
+    host: 'localhost',
     historyApiFallback: true,
+    port: 8080,
+    open: true,
+    hot: true,
   },
 };
