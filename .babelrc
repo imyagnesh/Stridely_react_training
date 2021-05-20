@@ -20,7 +20,9 @@
           "reducers": "./src/reducers",
           "hooks": "./src/hooks",
           "hoc": "./src/hoc",
-          "pages": "./src/pages"
+          "pages": "./src/pages",
+          "actions": "./src/actions",
+          "sagas": "./src/sagas"
         }
       }
     ]
